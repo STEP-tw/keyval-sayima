@@ -93,40 +93,35 @@ describe("parse digits and other special chars",function(){
 
   it("parse keys with underscores",function(){
     let expected=new Parser().parse("");
-    expected['key']='value';
-    let expected={'first_name':"value"};
+    expected['first_name']='value';
     let actual=kvParser.parse("first_name=value");
     chaiassert.deepEqual(expected,actual);
   });
 
   it("parse keys with a single underscore",function(){
     let expected=new Parser().parse("");
-    expected['key']='value';
-    let expected={'_':"value"};
+    expected['_']='value';
     let actual=kvParser.parse("_=value");
     chaiassert.deepEqual(expected,actual);
   });
 
   it("parse keys with multiple underscores",function(){
     let expected=new Parser().parse("");
-    expected['key']='value';
-    let expected={'__':"value"};
+    expected['__']='value';
     let actual=kvParser.parse("__=value");
     chaiassert.deepEqual(expected,actual);
   });
 
   it("parse keys with alphabets and digits(digits leading)",function(){
     let expected=new Parser().parse("");
-    expected['key']='value';
-    let expected={'0abc':"value"};
+    expected['0abc']='value';
     let actual=kvParser.parse("0abc=value");
     chaiassert.deepEqual(expected,actual);
   });
 
   it("parse keys with alphabets and digits(alphabets leading)",function(){
     let expected=new Parser().parse("");
-    expected['key']='value';
-    let expected={'a0bc':"value"};
+    expected['a0bc']='value';
     let actual=kvParser.parse("a0bc=value");
     chaiassert.deepEqual(expected,actual);
   });
@@ -140,7 +135,7 @@ describe("multiple keys",function(){
   it("parse more than one key",function(){
     let expected=new Parser().parse("");
     expected['key']='value';
-    let expected={key:"value",anotherkey:"anothervalue"};
+    expected['anotherkey']='anothervalue';
     let actual=kvParser.parse("key=value anotherkey=anothervalue");
     chaiassert.deepEqual(expected,actual);
   });
@@ -148,7 +143,7 @@ describe("multiple keys",function(){
   it("parse more than one key when keys have leading spaces",function(){
     let expected=new Parser().parse("");
     expected['key']='value';
-    let expected={key:"value",anotherkey:"anothervalue"};
+    expected['anotherkey']='anothervalue';
     let actual=kvParser.parse("   key=value anotherkey=anothervalue");
     chaiassert.deepEqual(expected,actual);
   });
@@ -156,7 +151,7 @@ describe("multiple keys",function(){
   it("parse more than one key when keys have trailing spaces",function(){
     let expected=new Parser().parse("");
     expected['key']='value';
-    let expected={key:"value",anotherkey:"anothervalue"};
+    expected['anotherkey']='anothervalue';
     let actual=kvParser.parse("key  =value anotherkey  =anothervalue");
     chaiassert.deepEqual(expected,actual);
   });
@@ -164,7 +159,7 @@ describe("multiple keys",function(){
   it("parse more than one key when keys have leading and trailing spaces",function(){
     let expected=new Parser().parse("");
     expected['key']='value';
-    let expected={key:"value",anotherkey:"anothervalue"};
+    expected['anotherkey']='anothervalue';
     let actual=kvParser.parse("  key  =value anotherkey  =anothervalue");
     chaiassert.deepEqual(expected,actual);
   });
@@ -178,34 +173,27 @@ describe("single values with quotes",function(){
   it("parse a single value with quotes",function(){
     let expected=new Parser().parse("");
     expected['key']='value';
-    let expected={key:"value"};
     let actual=kvParser.parse("key=\"value\"");
     chaiassert.deepEqual(expected,actual);
   });
 
   it("parse a single quoted value that has spaces in it",function(){
     let expected=new Parser().parse("");
-    expected['key']='value';
-      let expected=new Parser().parse("");let expected={key:"va lue"};
-
+    expected['key']='va lue';
     let actual=kvParser.parse("key=\"va lue\"");
     chaiassert.deepEqual(expected,actual);
   });
 
   it("parse a single quoted value that has spaces in it and leading spaces",function(){
     let expected=new Parser().parse("");
-    expected['key']='value';
-      let expected=new Parser().parse("");let expected={key:"va lue"};
-
+    expected['key']='va lue';
     let actual=kvParser.parse("key=   \"va lue\"");
     chaiassert.deepEqual(expected,actual);
   });
 
   it("parse a single quoted value that has spaces in it and trailing spaces",function(){
     let expected=new Parser().parse("");
-    expected['key']='value';
-      let expected=new Parser().parse("");let expected={key:"va lue"};
-
+    expected['key']='va lue';
     let actual=kvParser.parse("key=\"va lue\"   ");
     chaiassert.deepEqual(expected,actual);
   });
@@ -214,8 +202,8 @@ describe("single values with quotes",function(){
 describe("multiple values with quotes",function(){
   it("parse more than one value with quotes",function(){
     let expected=new Parser().parse("");
-    expected['key']='value';
-    let expected={key:"va lue",anotherkey:"another value"};
+    expected['key']='va lue';
+    expected['anotherkey']='another value';
     let actual=kvParser.parse("key=\"va lue\" anotherkey=\"another value\"");
     chaiassert.deepEqual(expected,actual);
   });
@@ -266,7 +254,6 @@ describe("mixed values with both quotes and without",function(){
     let expected=new Parser().parse("");
     expected['key']='value';
     expected['anotherkey']='anothervalue';
-    let expected={key:"value",anotherkey:"anothervalue"};
     let actual=kvParser.parse("  key  =value anotherkey  = \"anothervalue\"");
     chaiassert.deepEqual(expected,actual);
   });
