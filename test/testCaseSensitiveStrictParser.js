@@ -9,6 +9,7 @@ describe("strict parser that is case insensitive",function(){
     let kvParser=new StrictParser(["name"],false);
     // false indicates that case sensitive is false. By default it is true
     let expected=new Parsed();
+    console.log(expected);
     expected["NAME"]="jayanth";
     let parsed=kvParser.parse("NAME=jayanth");
     assert.deepEqual(parsed,expected);
