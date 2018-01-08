@@ -12,7 +12,6 @@ var StrictParseInfo=function(initialParsingFunction,validKeys,bool) {
   ParseInfo.call(this,initialParsingFunction);
   this.validKeys=validKeys;
   this.isCaseSensitive= bool===false?false:true;
-  this.isIncasesensitive=!bool;
 }
 
 StrictParseInfo.prototype=Object.create(ParseInfo.prototype);
@@ -23,7 +22,15 @@ StrictParseInfo.prototype.pushKeyValuePair=function() {
       throw new InvalidKeyError("invalid key",this.currentKey,this.currentPos);
     this.parsedKeys[this.currentKey]=this.currentValue;
     this.resetKeysAndValues();
-   }
+  }else{
+    let newValidKey=this.validKeys.map((validKey)=>{return validKey.toLowerCase()});
+    let currentKey=this.currentKey.toLowerCase();
+    if(!contains(newValidKey,currentKey))
+      throw new InvalidKeyError("invalid key",this.currentKey,this.currentPos);
+    this.parsedKeys[this.currentKey]=this.currentValue;
+    this.resetKeysAndValues();
+  }
+
 }
 
 module.exports=StrictParseInfo;
